@@ -14,35 +14,52 @@ export default function Education() {
 
         <div className="mx-auto mt-14 max-w-3xl">
           <div className="relative pl-8 sm:pl-10">
-            {/* Timeline line */}
-            <span className="absolute left-2.5 top-2 h-full w-px bg-gradient-to-b from-lavender via-softblue to-transparent sm:left-3.5" aria-hidden />
+            {/* Timeline track line - dynamically sizing down to the final element */}
+            <span 
+              className="absolute left-2.5 top-3 h-[calc(100%-24px)] w-px bg-gradient-to-b from-lavender via-softblue to-transparent sm:left-3.5" 
+              aria-hidden="true" 
+            />
 
-            <div className="relative animate-fade-up">
-              <span className="absolute -left-[1.4rem] top-1 grid h-5 w-5 place-items-center rounded-full bg-lavender ring-4 ring-lavender/20 sm:-left-[2.1rem]" aria-hidden />
+            {/* Container for vertical milestone list */}
+            <div className="space-y-12">
+              {education.map((item, index) => (
+                <div key={index} className="relative animate-fade-up">
+                  {/* Timeline indicator node */}
+                  <span 
+                    className="absolute -left-[1.4rem] top-3 grid h-5 w-5 place-items-center rounded-full bg-lavender ring-4 ring-lavender/20 sm:-left-[2.1rem]" 
+                    aria-hidden="true" 
+                  />
 
-              <div className="card card-hover p-6 sm:p-8">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="grid h-11 w-11 place-items-center rounded-xl bg-lavender-gradient text-navy-600 shadow-glow">
-                    <GraduationCap className="h-5 w-5" />
-                  </span>
-                  <h3 className="font-display text-xl font-bold">{education.degree}</h3>
+                  <div className="card card-hover p-6 sm:p-8">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="grid h-11 w-11 place-items-center rounded-xl bg-lavender-gradient text-navy-600 shadow-glow">
+                        <GraduationCap className="h-5 w-5" />
+                      </span>
+                      <div>
+                        <h3 className="font-display text-xl font-bold">{item.degree}</h3>
+                        {'board' in item && (
+                          <p className="text-xs text-[var(--text-muted)] mt-0.5">{item.board}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-softblue/15 px-3 py-1 text-xs font-medium text-softblue-600 dark:text-softblue-300">
+                        <CalendarClock className="h-3.5 w-3.5" />
+                        {item.graduation}
+                      </span>
+                      <span className="inline-flex items-center gap-1.5 rounded-full bg-lavender/15 px-3 py-1 text-xs font-medium text-lavender-600 dark:text-lavender-300">
+                        <BookOpen className="h-3.5 w-3.5" />
+                        {item.status}
+                      </span>
+                    </div>
+
+                    <p className="mt-5 text-sm leading-relaxed text-[var(--text-muted)]">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
-
-                <div className="mt-5 flex flex-wrap gap-3">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-softblue/15 px-3 py-1 text-xs font-medium text-softblue-600 dark:text-softblue-300">
-                    <CalendarClock className="h-3.5 w-3.5" />
-                    {education.graduation}
-                  </span>
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-lavender/15 px-3 py-1 text-xs font-medium text-lavender-600 dark:text-lavender-300">
-                    <BookOpen className="h-3.5 w-3.5" />
-                    {education.status}
-                  </span>
-                </div>
-
-                <p className="mt-5 text-sm leading-relaxed text-[var(--text-muted)]">
-                  {education.description}
-                </p>
-              </div>
+              ))}
             </div>
           </div>
         </div>
